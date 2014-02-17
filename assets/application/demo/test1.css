@@ -1,0 +1,23 @@
+#goku{
+    width: 100%;
+    background-color: #FFF;
+    height: 500px;
+   
+  
+}
+#tter{
+   background-image: url("Tester.png");
+   width: 350px;
+   height: 300px;
+   margin-left: 400px;
+    margin-top: 30px;
+    display: block;
+    clear: both;
+    animation:mymove 5s infinite;
+    -webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
+}
+#username{
+    margin-left: 450px;
+    margin-top: 50px;
+}
+

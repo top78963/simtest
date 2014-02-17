@@ -1,0 +1,59 @@
+#lv1{
+   
+    width: 100%;
+    background-color: #FFF;
+    height: 500px;
+
+}
+#mission1{
+    
+}
+#mission1_1{
+    background-image: url("one.png");
+    width: 200px;
+    height: 200px;
+    display: block;
+    position: relative;
+   
+    left: 50px;
+}
+#mission1_2{
+    background-image: url("two.png");
+    width: 200px;
+    height: 200px;
+    display: block;
+    
+    position: relative;
+    top: -200px;
+    left: 350px;
+}
+#mission1_3{
+    background-image: url("three.png");
+    width: 200px;
+    height: 200px;
+    display: block;
+    
+    position: relative;
+    top: -400px;
+    left: 650px;
+}
+#mission1_4{
+    background-image: url("four.png");
+    width: 200px;
+    height: 200px;
+    display: block;
+    
+    position: relative;
+    top: -600px;
+    left: 950px;
+}
+#mission1_5{
+    background-image: url("five.png");
+    width: 200px;
+    height: 200px;
+    display: block;
+    
+    position: relative;
+    top: -550px;
+    left: 50px;
+}

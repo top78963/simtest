@@ -1,0 +1,87 @@
+#lv1_3{
+   
+  width: 100%;
+    background-color: #FFF;
+    height: 500px;
+}
+#rq_box{
+    border: 1px solid #003399;
+    padding: 5px;
+    margin-top: 10px;
+}
+#input_box{
+     border: 1px solid #003399;
+     padding: 5px;
+    
+}
+#log_box{
+/*    border: 1px solid #003399;*/
+     padding: 5px;
+   
+}
+#st1{
+    height: 60px;
+    width:  60px;
+    margin-left: 10px;
+    float: right;
+}
+
+#st2{
+    height: 60px;
+    width:  60px;
+    margin-left: 10px;
+    float: left;
+    
+}
+
+#st3{
+    height: 60px;
+    width:  60px;
+    margin-left: 10px;
+    float: left;
+    
+}
+#st4{
+    height: 60px;
+    width:  60px;
+    margin-left: 10px;
+    float: left;
+    
+}
+#tbl_1{
+     border: 1px solid #003399;
+     width: 70%;
+/*     margin-left: auto; margin-right: auto;*/
+     float: right;
+     
+}
+#tbl_1 thead{
+    background-color: bisque; 
+}
+#tbl_1 th{
+    text-align: center;
+    border-right: 1px solid red;
+    font-weight: bold;   
+}
+#tbl_1 td{
+    text-align: center;
+    border-right: 1px solid red;
+     border-top: 1px solid red;
+}
+#gv1{
+    background-image: url(bug.png);
+    border: solid 0px #FFF;
+    box-shadow: none; 
+}
+#log_over{
+    height: 100px;
+    overflow-y: auto;
+}
+#finish_bottom{
+    margin-top: 50px;
+    float: right;
+}
+#menu_bar{
+    margin-top: 80px;
+    border: 1px solid #003399;
+}
