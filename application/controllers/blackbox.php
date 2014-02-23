@@ -5,26 +5,25 @@
  */
 class blackbox extends CI_Controller {
 
+    var $expected_option;
+
     public function __construct() {
         parent::__construct();
         $this->load->model('blackbox_model');
+        $this->load->helper('requirement_helper');
     }
 
     //Login-----------------------------------------------------
-    function quest($number = 0) {
-        $quest_data = $this->blackbox_model->get_quest_data($number);
-        $exp_options = array(
-            '' => '',
-            'Invalid input value(s)' => 'Invalid input value(s)',
-            'Not a Triangle' => 'Not a Triangle',
-            'Equilateral' => 'Equilateral',
-            'Isosceles' => 'Isosceles',
-            'Scalene' => 'Scalene'
-        );
+    function quest($req_id = 1) {
+
+        $quest_data = $this->blackbox_model->get_quest_data($req_id);
+
+
+//$quest_data = expected_skip
         $data = array(
             'command' => $quest_data['command'],
             'requirement' => $quest_data['requirement'],
-            'exp_options' => $exp_options,
+            'exp_options' => $quest_data['exp_options'],
             'sent_test_url' => site_url('blackbox/ajax_send_test')
         );
 
@@ -44,4 +43,5 @@ class blackbox extends CI_Controller {
         );
         echo json_encode($a);
     }
+
 }

@@ -1,257 +1,64 @@
-<div id="game_wrapper">
-    <div id="bg_title" class="clearfix"> 
-        <div id="b_logo" >Lv.1
-        </div>
-        <div id="b_username" >Name...Points...
-        </div>
+<div class="row" style="margin-bottom: 15px;">
+
+    <div class="col-md-2">
+        <img style="height: 150px;"src="<?php echo base_url('files/images/simtest_av.png'); ?>" alt="รูปตัวแทน" class="img-thumbnail">
     </div>
-    <div id="bg_command"class="clearfix"> 
-        <div id="b_avatar">
-            <img src="<?php echo base_url('files/images/simtest_av.png'); ?>"/>
-        </div>
+    <div class="col-md-8">
+        <textarea  class="form-control"  style="width: 100%; height: 150px;" readonly><?php echo $command; ?></textarea> 
+    </div>
+    <div class="col-md-2">
 
-        <a id="b_next_btn" href="http://th.lipsum.com/">Next</a>
-
-        <div id="b_command"> 
-            <textarea readonly><?php echo $command; ?></textarea>
-        </div>
-
+        <a class="btn btn-primary btn-lg" style="width: 100%;margin-top: 50px;" href="http://th.lipsum.com/"> <span class="glyphicon glyphicon-chevron-right"></span> Next Question</a>
     </div>
 
-    <div class="clearfix"> 
-        <div id="b_left"> 
-            <div id="b_requirement"> 
-                <label>Requirements</label>
+</div>
+<div class="row ">
+    <div class="col-md-8 ">
+        <div class="row highlight">
+            <label>Requirements</label>
+            <div class="bg-info">
                 <?php echo $requirement; ?>
             </div>
-            <div > 
-                <div id="input_area">
-                    <label>Test case Input</label>
-                    <input type="text"  name="b_tc" id="b_tc">
-                    <label>Expected Output</label>
-                    <?php echo form_dropdown('b_exp', $exp_options, '', 'id="b_exp"') ?>
-                  
-                </div>
-                <div id="input_exe_btn" class="center_wrapper">
-                    <input type="button" name="" value="Test execution" id="b_sent_test_btn">
-                </div>
-
+        </div>
+        <div class="row highlight">
+            <div class="col-md-6">
+                <p>
+                    <label for="b_tc">Test case Input</label>
+                    <input class="form-control" type="text"  name="b_tc" id="b_tc">
+                </p>
             </div>
-            <div id="b_result"> 
-                Test results
+            <div class="col-md-6">
+                <p>
+                    <label for="b_exp">Expected Output</label>
+                    <?php echo form_dropdown('b_exp', $exp_options, '', 'class="form-control" id="b_exp"') ?>
+                </p>
             </div>
-            <div id="b_feedback"> 
-                Feedback
+            <div class="col-md-12">
+                <p>
+                    <input class="btn btn-primary btn-lg" type="button" name="" value="Test execution" id="b_sent_test_btn">
+                    <input class="btn btn-primary btn-lg" type="button" name="" value="Next" id="b_sent_test_btn">
+                </p>
             </div>
         </div>
+        <div class="row highlight" style="height: 100px;">
+            Test results
+        </div>
+        <div class="row highlight" style="height: 100px;">
+            Feedback
+        </div>
 
-        <div id="b_right"> 
-            <div id="b_log">
-                b_log
-            </div>
-            <div id="b_awards"> 
-                b_awards
-            </div>
+    </div>
+    <div class="col-md-4">
+
+
+        <div class="col-md-12 highlight" style="height: 360px;">
+            b_log
+        </div>
+        <div class="col-md-12 highlight">
+            b_awards
         </div>
     </div>
 </div>
-<!--______________________________CSS____________________________-->
-<style>
-    #game_wrapper{
-
-    }
-    /*----------กรอบLayout---------*/
-    #game_wrapper div{
-        /*        border:  #FFF 1px solid;*/
-    }
-    #bg_title{
-/*        background-color: #B8C4CF;*/
-    }
-    /*----------ส่วนบนซ้าย---------*/
-    #b_logo{
-        width: 50px;
-        height: 30px;
-        float: left;
-
-    }
-    /*----------ส่วนบนขวา---------*/
-    #b_username{
-        width: 100px;
-        height: 30px;
-        float: right;
-    }
-    /*----------ส่วนรูปอวต้า---------*/
-    #b_avatar{
-        
-        width: 100px;
-        height: 100px;
-        float: left;
-    }
-    #b_avatar img{
-        width: 100px;
-        height: 100px;
-
-    }
-    /* --------ส่วนกรอบคำสั่ง---------*/
-    #b_command {
-        width: 770px;
-        float: right;
-        margin-top: 10px;
-        margin-right: 10px;
-    }
-    #b_command textarea{
-        width: 740px;
-        height: 70px;
-        resize: none;
-        font-size: 18px;
-        color: #000066;
-    }
-    #b_next_btn{
-        width: 35px;
-        float: right;
-        margin-top: 20px;
-        margin-right: 10px;
-    }
-    #bg_command{
-        background-color: #B8C4CF;
-        /*        background-image: url("<?php echo site_url('files/images/bg_sgreen.jpg'); ?>")*/
-    }
-
-    #b_next_btn {
-        -moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
-        box-shadow:inset 0px 1px 0px 0px #9acc85;
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #74ad5a), color-stop(1, #68a54b));
-        background:-moz-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-        background:-webkit-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-        background:-o-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-        background:-ms-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
-        background:linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#74ad5a', endColorstr='#68a54b',GradientType=0);
-        background-color:#74ad5a;
-        border:1px solid #3b6e22;
-        display:inline-block;
-        cursor:pointer;
-        color:#ffffff;
-        font-family:arial;
-        font-size:13px;
-        font-weight:bold;
-        padding:6px 12px;
-        text-decoration:none;
-    }
-    #b_next_btn:hover {
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #68a54b), color-stop(1, #74ad5a));
-        background:-moz-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-        background:-webkit-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-        background:-o-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-        background:-ms-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
-        background:linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#68a54b', endColorstr='#74ad5a',GradientType=0);
-        background-color:#68a54b;
-    }
-    #b_next_btn:active {
-        position:relative;
-        top:1px;
-    }
-    /*-------ขนาดกรอบRequirement------------*/
-    #b_requirement{
-     
-        height: 120px;
-    }
-    #b_requirement label{
-
-        font-weight: bold;
-        /*                font-style: italic;*/
-        width: 2000px;
-        margin-left: 10px;
-    }
-    #b_requirement li{
-        list-style: circle;
-    }
-
-    /*-------ห้ามปรับ ส่วนขนาดกรอบซ้ายมือ-------*/
-    #b_left{
-        width: 550px;
-        float: left;
-    }
-
-    /*------ห้ามปรับ ส่วนขนาดกรอบขวามือ--------*/
-    #b_right{
-        width: 390px;
-        float: right;
-    }
-
-    .center_wrapper{
-        text-align: center;
-        width: 100%;
-    }
-    .right_wrapper{
-        text-align: right;
-        width: 100%;
-    }
-    
-    /* ----------รูปแบบข้อความ Input-expected------------*/
-    #input_area label{
-        font-weight: bold;
-        /*                font-style: italic;*/
-        width: 2000px;
-        margin-left: 10px;
-    }
-    #input_area input,#input_area select{
-
-        width: 120px;
-        margin-left: 10px;
-        border: solid 2px #000066;
-    }
-
-    #input_area{
-        background-color: #B8C4CF;
-        height: 30px;
-        padding-top: 10px;
-    }
-    /*ขนาดปุ่ม TestExecute*/
-    #input_exe_btn{
-        background-color: #B8C4CF;
-        height: 40px;
-        padding-bottom: 5px;
-        
-    }
-    #b_sent_test_btn{
-        width: 350px;
-        height: 35px;
-    } 
-    /* ----------ส่วนResult------------*/
-    #b_result{
-/*        background-color: #ff9;*/
-        height: 70px;
-    }
-    /* ----------ส่วนfeedback------------*/
-    #b_feedback{
-        
-        height: 130px;
-
-    }
-    #b_feedback img{
-        width: 130px;
-        height: 130px;
-    }
-    #b_log{
-        border:  #FFF 2px solid;
-        height: 130px;
-
-    }
-    #b_awards{
-        border:  #FFF 2px solid;
-        height: 130px;
-
-    }
-    /* ----------เปลี่ยนสีBackgrounf bodyนอก------------*/
-    body{
-        /*        background-image: url("<?php echo site_url('files/images/background.jpg'); ?>")*/
-    }
-
-
-</style>
 <script>
     var allow_next = false;
     var sent_test_url = '<?php echo $sent_test_url; ?>';
@@ -287,3 +94,22 @@
 
     });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
