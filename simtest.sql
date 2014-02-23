@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2014 at 02:59 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Feb 23, 2014 at 09:20 PM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `simtest`
 --
+CREATE DATABASE IF NOT EXISTS `simtest` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `simtest`;
 
 -- --------------------------------------------------------
 
@@ -28,10 +30,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `quest` (
   `quest_id` int(11) NOT NULL AUTO_INCREMENT,
-  `number` smallint(6) NOT NULL COMMENT 'เลขที่ข้อ',
   `command` text NOT NULL COMMENT 'คำสั่ง',
-  `image` varchar(255) NOT NULL COMMENT 'รูปภาพ',
+  `command_image` varchar(255) NOT NULL COMMENT 'รูปภาพ',
+  `requirement` text,
+  `requirement_image` varchar(255) NOT NULL COMMENT 'รูปภาพ',
   `type` enum('whitebox','blackbox') NOT NULL DEFAULT 'blackbox' COMMENT 'ประเภทการ test',
+  `expected_options` text NOT NULL,
   PRIMARY KEY (`quest_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='ตาราง : โจทย์' AUTO_INCREMENT=3 ;
 
@@ -39,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `quest` (
 -- Dumping data for table `quest`
 --
 
-INSERT INTO `quest` (`quest_id`, `number`, `command`, `image`, `type`) VALUES
-(1, 0, 'Inputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.', 'files/images/map.png', 'blackbox'),
-(2, 1, 'สี่เหลี่ยม', 'files/images/map.png', 'blackbox');
+INSERT INTO `quest` (`quest_id`, `command`, `command_image`, `requirement`, `requirement_image`, `type`, `expected_options`) VALUES
+(1, 'Inputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.', 'files/images/map.png', 'Inputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.\r\nInputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.\r\nInputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.\r\nInputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.\r\nInputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.\r\nInputs should be space-separated and the expected output is case sensitive. An example input would be ''4 4 4'' and expected output ''Equilateral''.', '', 'blackbox', '1,2,3,4,5,6'),
+(2, 'สี่เหลี่ยม', 'files/images/map.png', NULL, '', 'blackbox', '');
 
 -- --------------------------------------------------------
 
@@ -64,13 +68,12 @@ CREATE TABLE IF NOT EXISTS `quest_requirement` (
 --
 
 INSERT INTO `quest_requirement` (`req_id`, `quest_id`, `req_step`, `req_weight`, `requirement`, `expected_skip`) VALUES
-(1, 1, '0,2,3', 1, '<b>-The Triangle program accepts three integer values as input. Each value represents a side of the triangle.</b>\r\n<br/>\r\n<b>-If the inputs are invalid (sides smaller than 0, or not integers) or if fewer than three values are provided the program outputs the message "Invalid input value(s)".</b>\r\n<br/>\r\n<b>-If all three sides of the triangle are of equal length the program will output the message "Equilateral".</b>\r\n<br/>', '2,3,4,5,6'),
-(2, 1, '1,2,3', 2, '<b>If the length of the largest side is greater or equal to the sum of the lengths of the two smaller sides the program will output the message "Not a Triangle".</b>\r\n<br/>', '2,3,4'),
-(3, 1, '2', 3, '<b>If all three sides of the triangle are of equal length the program will output the message "Equilateral".</b>\r\n<br/>', '3,4'),
-(4, 1, '3', 4, '<b>If exactly two sides of the triangle are of equal length the program will output the message "Isosceles".</b>\r\n<br/>', ''),
-(5, 1, '4', 5, '<b>If all three sides of the triangle are of different lengths the program will output the message "Scalene".</b>\r\n<br/>', ''),
-(6, 1, '5', 6, '<b>  </b>\r\n<br/>', ''),
-(7, 2, '6', 0, '<b>The Triangle program accepts three integer values as input. Each value represents a side of the triangle.</b>\r\n<br/>', '');
+(1, 1, '0,2,3', 1, 'ใส่ให้ครย', '2,3,4,5,6'),
+(2, 1, '1,2,3', 2, 'เป็นจำนวนเต็ม', '2,3,4'),
+(3, 1, '2', 3, 'น้อยกว่า 0 ', '3,4'),
+(4, 1, '3', 4, 'เป็นด้านเท่า', ''),
+(5, 1, '4', 5, 'หน้าจั่ว', ''),
+(6, 1, '5', 6, 'เป็นสามเหลี่ยมด้านไม่เท่า', '');
 
 -- --------------------------------------------------------
 
@@ -84,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(36) NOT NULL,
   `fullname` varchar(50) NOT NULL,
   `nickname` varchar(20) NOT NULL,
+  `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -91,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`uid`, `username`, `password`, `fullname`, `nickname`) VALUES
-(1, 'testname', '', '', '');
+INSERT INTO `user` (`uid`, `username`, `password`, `fullname`, `nickname`, `active`) VALUES
+(1, 'testname', '', '', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

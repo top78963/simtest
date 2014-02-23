@@ -50,16 +50,25 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Simtest</a>
+                    <a class="navbar-brand" href="<?php echo site_url(); ?>">Simtest</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About Game</a></li>
+                        <li class="active"><a href="<?php echo site_url(); ?>">Home</a></li>
+                        <li><a href="<?php echo site_url('page/about_game'); ?>">About Game</a></li>
 
 
                     </ul>
-                </div><!--/.nav-collapse -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php if ($is_login) { ?>
+                            <li class="active"><a>Hello <?php echo $display_name; ?></a></li>
+                            <li><a href="<?php echo site_url('user/logout'); ?>">Logout</a></li>
+                        <?php } else { ?>
+                            <li class="active"><a>..</a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+
             </div>
         </div>
         <div class="container">

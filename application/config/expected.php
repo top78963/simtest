@@ -5,7 +5,8 @@ $config['exp_options_1'] = array(
     'Not a Triangle',
     'Equilateral',
     'Isosceles',
-    'Scalene'
+    'Scalene',
+    
 );
 $config['exp_options_2'] = array(
     'Invalid input value(s)' => 'Invalid input value(s)',

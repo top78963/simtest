@@ -15,6 +15,7 @@ class Template {
     var $og_image;
     var $link_tag;
     var $script_tag;
+    var $script_var;
     var $title;
     var $keyword;
     var $description;
@@ -117,6 +118,20 @@ class Template {
         $this->script_tag .= "\n" . '<script type="text/javascript" src="' . $file . '"></script>';
     }
 
+    public function script_var($script_var) {
+        $script_text = '';
+        if ($script_var) {
+            foreach ($script_var as $script_k => $script_v) {
+                if (is_array($script_v)) {
+                    $script_text .= "\n" . 'var ' . $script_k . '=' . $script_v['value'] . ';';
+                } else {
+                    $script_text .= "\n" . 'var ' . $script_k . '="' . $script_v . '";';
+                }
+            }
+        }
+        $this->script_var = '<script>' . $script_text . '</script>';
+    }
+
     /**
      * เขียน Content ลงตำแหน่งที่ต้องการของ Tempalte
      * @param String $view <p>ที่อยู่ของ View </p>
@@ -193,16 +208,16 @@ class Template {
             'filepath' => './themes/' . $this->temmplate_name . '/page.php',
             'site_name' => $this->site_name,
             'title' => $this->title,
-            'top_menu' => $this->CI->auth->get_top_menu(),
+            //'top_menu' => $this->CI->auth->get_top_menu(),
             'content' => $this->content,
             'footer' => $this->footer,
-            'script' => $this->script_tag,
+            'script' => $this->script_tag. $this->script_var,
             'link' => $this->link_tag,
             'is_login' => $this->CI->auth->is_login(),
             'template_url' => base_url('themes/' . $this->temmplate_name) . '/',
             'og_image' => $this->og_image,
             'description' => $this->description,
-            'top_login_form' => $this->CI->load->view('user/top_login_form', array('form_action' => site_url('user/do_login')), TRUE)
+            'display_name' => $this->CI->auth->get_display_name()
         );
 
         return $this->CI->parser->parse('_template', $data);

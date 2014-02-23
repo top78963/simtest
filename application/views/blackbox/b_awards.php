@@ -1,3 +1,0 @@
-Power 
-Credit
-Non-credit

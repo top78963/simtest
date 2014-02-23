@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <p>
                     <label for="b_tc">Test case Input</label>
-                    <input class="form-control" type="text"  name="b_tc" id="b_tc">
+                    <input class="form-control" type="text"  name="b_tc" id="b_tc" autocomplete="">
                 </p>
             </div>
             <div class="col-md-6">
@@ -36,36 +36,37 @@
             <div class="col-md-12">
                 <p>
                     <input class="btn btn-primary btn-lg" type="button" name="" value="Test execution" id="b_sent_test_btn">
-                    <input class="btn btn-primary btn-lg" type="button" name="" value="Next" id="b_sent_test_btn">
+                    
                 </p>
             </div>
         </div>
-        <div class="row highlight" style="height: 100px;">
-            Test results
+        <div id="b_result" class="row highlight" style="height: 100px;">
+            *** Test results ***
         </div>
-        <div class="row highlight" style="height: 100px;">
-            Feedback
+        <div id="b_feedback" class="row highlight" style="height: 100px;">
+            *** Feedback ***
         </div>
 
     </div>
     <div class="col-md-4">
 
 
-        <div class="col-md-12 highlight" style="height: 360px;">
-            b_log
+        <div id="b_log" class="col-md-12 highlight" style="height: 360px;">
+            Log
         </div>
-        <div class="col-md-12 highlight">
-            b_awards
+        <div id="b_awards" class="col-md-12 highlight">
+            <?php echo $score; ?>
         </div>
     </div>
 </div>
 <script>
     var allow_next = false;
-    var sent_test_url = '<?php echo $sent_test_url; ?>';
+
 
     function sent_test() {
         var data = 'b_exp=' + $("#b_exp").val();
         data = data + '&b_tc=' + $("#b_tc").val();
+        data = data + '&quest_id=' + quest_id;
         console.log(data);
         $.ajax({
             type: "POST",
@@ -75,12 +76,13 @@
         }).done(function(json) {
             $("#b_result").html(json.result);
             $("#b_feedback").html(json.feedback);
-            $("#b_log").html(json.log);
+            //$("#b_log").html(json.log);
             $("#b_awards").html(json.awards);
 
         });
     }
     $(function() {
+        $('#b_tc').val('');
         $("#b_next_btn").click(function() {
             if (!allow_next) {
                 alert("not allow");
@@ -89,6 +91,7 @@
             return true;
         });
         $("#b_sent_test_btn").click(function() {
+           
             sent_test();
         });
 
