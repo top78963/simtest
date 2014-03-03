@@ -3,9 +3,9 @@
 function make_predic($data) {
     if ($data['actual'] == $data['expected']) {
         $data['predictable'] = TRUE;
-        $data['message'] .= ' ท่านเก่งจุงที่เดาถูก';
+        $data['message'] .= ' เก่งมากExpectedถูกแล้วละ';
     } else {
-        $data['message'] .= ' อ่อนหัดที่เดาไม่ถูก';
+        $data['message'] .= ' อ่อนหัด Expected ผิด';
     }
     return $data;
 }
@@ -130,8 +130,6 @@ function rq5($a_var, $exp_options, $expected) {
         $data['discover_bug'] = TRUE;
         return make_predic($data);
     }
-
-
 
     return $data;
 }
