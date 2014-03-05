@@ -8,11 +8,14 @@
 class game_model extends CI_Model {
 
     var $game_data;
+    
 
     public function __construct() {
         parent::__construct();
         $this->load->config('expected');
         $this->load->helper('requirement_helper');
+        
+        
     }
 
     function get_quest_data($quest_id) {
@@ -41,31 +44,41 @@ class game_model extends CI_Model {
     }
 
     function send_test($data) {
-        $result = array();
         $quest_id = $data['quest_id'];
-        $b_exp = (int) $data['b_exp'];
+        $fn_quest = 'quest' . $quest_id;
+        $a_var = $fn_quest($data['b_tc']);
+        $data['b_exp'] = (int)$data['b_exp'];
+
         $exp_options = $this->config->item('exp_options_' . $quest_id);
 
-
-        $fn_name = 'program_quest_' . $quest_id;
-        $result_fn = $fn_name($data['b_tc']);
-        $actual_result = (int) array_search($result_fn, $exp_options);
-
-        $result = array(
-            'expected' => $b_exp,
-            'actual' => $actual_result,
-            'expected_text' => $exp_options[$b_exp],
-            'actual_text' => $exp_options[$actual_result]
-        );
-        if ($actual_result == $b_exp) {
-            $result['message'] = 'YES';
-            $this->set_score(10);
-        } else {
-            $result['message'] = 'NO';
-            $this->set_score(-10);
+        foreach ($_SESSION['rq_data'] as $v) {
+            $fn_name = 'rq' . $v['req_id'];
+            $result = $fn_name($a_var, $exp_options, $data['b_exp']);
+            if ($result['discover_bug']) { // เดาถูก 
+                $result['expected_text'] = $exp_options[$result['expected']];
+                $result['actual_text'] = $exp_options[$result['actual']];
+                if ($result['predictable']) {
+                    $this->set_score(10);
+                } else {
+                    $this->set_score(-10);
+                }
+                return $result;
+            }
         }
-        $result['awards'] = $this->get_score();
-        return $result;
+
+        $data = array(
+            'expected' => $data['b_exp'],
+            'actual' => 0,
+            'predictable' => FALSE,
+            'message' => 'ไม่พบบัค',
+            'input' => $a_var
+        );
+         $this->set_score(-10);
+        $data['expected_text'] = $exp_options[$data['expected']];
+        $data['actual_text'] = $exp_options[$data['actual']];
+
+
+        return $data;
     }
 
     function set_score($score) {
