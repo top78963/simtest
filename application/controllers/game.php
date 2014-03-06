@@ -38,7 +38,7 @@ class game extends CI_Controller {
             'quest_id' => array('value' => $quest_data['quest_id'])
         );
         $this->template->script_var($script_var);
-
+        $this->template->load_buzz();
         $this->template->write_view('game/black_main', $data);
         $this->template->render();
     }
@@ -50,10 +50,11 @@ class game extends CI_Controller {
         $a = array(
             'result' => $this->load->view('game/black_result', $result_data, TRUE),
             'feedback' => $this->load->view('game/black_feedback', $result_data, TRUE),
-            'log' => $this->load->view('game/black_log', array(), TRUE),
+            'log' => $this->load->view('game/black_log', $result_data, TRUE),
             'awards' => $this->load->view('game/black_awards', array('score' => $this->game_model->get_score()), TRUE),
             'p' => $p,
             'result_data' => $result_data,
+            'debug' => $result_data['debug']
         );
         echo json_encode($a);
     }

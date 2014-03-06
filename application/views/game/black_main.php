@@ -13,7 +13,7 @@
 
 </div>
 <div class="row ">
-    <div class="col-md-8 ">
+    <div class="col-md-7 ">
         <div class="row highlight">
             <label>Requirements</label>
             <div class="bg-info">
@@ -36,7 +36,7 @@
             <div class="col-md-12">
                 <p>
                     <input class="btn btn-primary btn-lg" type="button" name="" value="Test execution" id="b_sent_test_btn">
-                    
+
                 </p>
             </div>
         </div>
@@ -48,10 +48,10 @@
         </div>
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
 
 
-        <div id="b_log" class="col-md-12 highlight" style="height: 360px;">
+        <div id="b_log" class="col-md-12 highlight" style="height: 432px;overflow-y: scroll;">
             Log
         </div>
         <div id="b_awards" class="col-md-12 highlight">
@@ -60,7 +60,17 @@
     </div>
 </div>
 <script>
-    var allow_next = false;
+
+    //sounds
+    var volume = 30;
+    var soundJump = new buzz.sound(site_url("files/sounds/sfx_wing.ogg"));
+    var soundScore = new buzz.sound(site_url("files/sounds/sfx_point.ogg"));
+    var soundHit = new buzz.sound(site_url("files/sounds/sfx_hit.ogg"));
+    var soundDie = new buzz.sound(site_url("files/sounds/sfx_die.ogg"));
+    var soundSwoosh = new buzz.sound(site_url("files/sounds/sfx_swooshing.ogg"));
+    buzz.all().setVolume(volume);
+
+
 
 
     function sent_test() {
@@ -76,8 +86,16 @@
         }).done(function(json) {
             $("#b_result").html(json.result);
             $("#b_feedback").html(json.feedback);
-            //$("#b_log").html(json.log);
+            $("#b_log").html(json.log);
             $("#b_awards").html(json.awards);
+            if (json.result_data.win) {
+                soundScore.stop();
+                soundScore.play();
+            } else {
+                soundDie.stop();
+                soundDie.play();
+                soundHit.play();
+            }
 
         });
     }
@@ -91,7 +109,8 @@
             return true;
         });
         $("#b_sent_test_btn").click(function() {
-           
+            soundJump.stop();
+            soundJump.play();
             sent_test();
         });
 

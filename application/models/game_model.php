@@ -49,21 +49,34 @@ class game_model extends CI_Model {
 
         $fn_name = 'program_quest_' . $quest_id;
         $result_fn = $fn_name($data['b_tc']);
-        $actual_result = (int) array_search($result_fn, $exp_options);
+        if ($result_fn == '') {
+            $actual_result = '';
+        } else {
+            $actual_result = (int) array_search($result_fn, $exp_options);
+        }
+
 
         $result = array(
             'expected' => $b_exp,
             'actual' => $actual_result,
             'expected_text' => $exp_options[$b_exp],
-            'actual_text' => $exp_options[$actual_result]
+            'actual_text' => @$exp_options[$actual_result],
+            'input'=>$data['b_tc']
         );
+        $result['debug'] = $result_fn;
         if ($actual_result == $b_exp) {
             $result['message'] = 'YES';
+            $result['win'] = TRUE;
+
             $this->set_score(10);
         } else {
             $result['message'] = 'NO';
+            $result['win'] = FALSE;
             $this->set_score(-10);
         }
+
+        $this->add_log($result);
+        $result['logs'] = $this->get_log();
         $result['awards'] = $this->get_score();
         return $result;
     }
@@ -74,6 +87,25 @@ class game_model extends CI_Model {
 
     function get_score() {
         return $_SESSION['score'];
+    }
+
+    function add_log($data) {
+       // if (isset($_SESSION['logs'])) {
+            $_SESSION['logs'][] = $data;
+       // }else{
+            
+        //}
+    }
+
+    function reset_log() {
+        $_SESSION['logs'] = array();
+    }
+
+    function get_log() {
+//        if (!isset($_SESSION['logs'])) {
+//            $_SESSION['logs'] = array();
+//        }
+        return $_SESSION['logs'];
     }
 
 }

@@ -211,7 +211,7 @@ class Template {
             //'top_menu' => $this->CI->auth->get_top_menu(),
             'content' => $this->content,
             'footer' => $this->footer,
-            'script' => $this->script_tag. $this->script_var,
+            'script' => $this->script_tag . $this->script_var,
             'link' => $this->link_tag,
             'is_login' => $this->CI->auth->is_login(),
             'template_url' => base_url('themes/' . $this->temmplate_name) . '/',
@@ -303,6 +303,11 @@ class Template {
         //$this->script(base_url() . 'assets/jquey-timepicker-addon/localization/jquery-ui-timepicker-th.js.js');
         $this->script(base_url() . 'assets/jquey-timepicker-addon/jquery-ui-sliderAccess.js');
         $this->link('assets/jquey-timepicker-addon/jquery-ui-timepicker-addon.css');
+    }
+
+    public function load_buzz() {
+        $this->script(base_url() . 'assets/buzz/buzz.min.js');
+        
     }
 
 }

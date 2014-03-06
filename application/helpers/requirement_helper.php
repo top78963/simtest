@@ -2,6 +2,9 @@
 
 function input_transform_quest_1($text) {
     $text = trim($text);
+    if ($text == '') {
+        return array();
+    }
     $a = explode(' ', $text);
 
     return $a;
@@ -9,10 +12,12 @@ function input_transform_quest_1($text) {
 
 function program_quest_1($text) {
     $args = input_transform_quest_1($text);
-    if(count($args) < 3){
+
+    if (count($args) < 3) {
         return 'Invalid input value(s)';
     }
     $Triangle = new Triangle($args);
+    return $Triangle->get_result();
 }
 
 class Triangle {
@@ -21,6 +26,7 @@ class Triangle {
     var $firstSide = 0;
     var $secondSide = 0;
     var $thirdSide = 0;
+    var $result;
 
     function __construct($args) {
         $arg1 = 0;
@@ -33,9 +39,17 @@ class Triangle {
 
         if ($arg1 < 0 || $arg2 < 0 || $arg3 < 0) {
 
-            return "Invalid input value(s)";
+            return "Invalid input value(s)1";
         }
-        return $this->findTriangleType();
+        $this->firstSide = $arg1;
+        $this->secondSide = $arg2;
+        $this->thirdSide = $arg3;
+        $this->findTriangleType();
+        $this->result = $this->findTriangleType();
+    }
+
+    function get_result() {
+        return $this->result;
     }
 
     /* Determine which side is the largest */
