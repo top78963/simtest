@@ -1,25 +1,31 @@
-<div class="row" style="margin-bottom: 15px;">
-
+<div class="row" >
     <div class="col-md-2">
-        <img style="height: 150px;"src="<?php echo base_url('files/images/simtest_av.png'); ?>" alt="รูปตัวแทน" class="img-thumbnail">
+        <img style="height: 80px;"src="<?php echo base_url('files/images/simtest_av.png'); ?>" alt="รูปตัวแทน" class="img-thumbnail">
     </div>
     <div class="col-md-8">
-        <textarea  class="form-control"  style="width: 100%; height: 150px;" readonly><?php echo $command; ?></textarea> 
-    </div>
-    <div class="col-md-2">
-
-        <a class="btn btn-primary btn-lg" style="width: 100%;margin-top: 50px;" href="http://th.lipsum.com/"> <span class="glyphicon glyphicon-chevron-right"></span> Next Question</a>
+        <textarea  class="form-control"  style="width: 100%; height: 80px;" readonly><?php echo $command; ?></textarea> 
     </div>
 
+    <div id="b_awards" class="col-md-2 highlight">
+            <?php echo $score; ?>
+    </div>
 </div>
 <div class="row ">
     <div class="col-md-6 ">
-        <div class="row highlight">
+        
+        <div class=" highlight">
             <label>Requirements</label>
             <div class="bg-info">
-                <?php echo $requirement; ?>
+                <?php echo $requirement;?>
             </div>
         </div>
+        <div class="highlight clearfix">
+            <label>Test log</label>
+        <div id="b_log" class="col-md-12 highlight" style=" height: 150px;overflow-y: scroll;"></div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
         <div class="row highlight">
             <div class="col-md-6">
                 <p>
@@ -36,7 +42,6 @@
             <div class="col-md-12">
                 <p>
                     <input class="btn btn-primary btn-lg" type="button" name="" value="Test execution" id="b_sent_test_btn">
-
                 </p>
             </div>
         </div>
@@ -46,17 +51,7 @@
         <div id="b_feedback" class="row highlight" style="height: 100px;">
             *** Feedback ***
         </div>
-
-    </div>
-    <div class="col-md-6">
-
-
-        <div id="b_log" class="col-md-12 highlight" style="height: 432px;overflow-y: scroll;">
-            Log
-        </div>
-        <div id="b_awards" class="col-md-12 highlight">
-            <?php echo $score; ?>
-        </div>
+        
     </div>
 </div>
 <script>

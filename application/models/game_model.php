@@ -70,8 +70,9 @@ class game_model extends CI_Model {
 
         $check_var_result = $this->pair_check_var($check_var);
 
+        // เริ่มตรวจ
         if ($check_var_result) {
-            $result['message'] = 'NO แสรดคิดจะโกงเหรอ จุ๊ๆๆๆ อย่าๆๆๆ ลบ 100 คะแนนเลยมุง';
+            $result['message'] = 'NO แสรดคิดจะโกงเหรอ จุ๊ๆๆๆ อย่าๆๆๆ ลบ '.($this->count_cheat()*100).' คะแนนเลยมุง';
             $result['win'] = FALSE;
             $this->set_score(-100*$this->count_cheat());
             $this->add_cheat();
@@ -93,11 +94,13 @@ class game_model extends CI_Model {
                         $result['win'] = TRUE;
                         $this->set_score(10);
                     } else {
+                        // ไม่ตรงทั้ง บัค และ จริง คาดหวังไม่ตรง ไม่ตรงกับโปรแกรมที่มีบัค และจริง
                         $result['message'] = 'NO คุณเจอบัคน่ะ แต่ว่า การคาดเดาของคุณมันยังดูมึนๆ ไปหน่อย';
                         $result['win'] = FALSE;
                         $this->set_score(-10);
                     }
                 } else {
+                    //ไม่มีบัค คาดหวังไม่ถูก
                     $result['message'] = 'NO test case ของคุณนี่มันมั่วสาด โง่สาด';
                     $result['win'] = FALSE;
                     $this->set_score(-10);
@@ -105,6 +108,7 @@ class game_model extends CI_Model {
             }
             $this->add_log($result);
         }
+        // สิ้นสุดการตรวจ
         $this->add_check_var($check_var);
         $result['logs'] = $this->get_log();
         $result['awards'] = $this->get_score();
